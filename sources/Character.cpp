@@ -9,6 +9,8 @@ namespace ariel
         this->location = location_arg;
         this->HP = HP_arg;
         this->name = name_arg;
+        this->isLeader = false;
+        this->isTeamMember = false;
     }
     
     Character::Character()
@@ -16,6 +18,8 @@ namespace ariel
         this->location = Point(0,0);
         this->HP = 0;
         this->name = "Default";
+        this->isLeader = false;
+        this->isTeamMember = false;
     }
 
     double Character::distance(Character* other) 
@@ -30,6 +34,10 @@ namespace ariel
 
     void Character::hit(int dmg)
     {
+        if(dmg < 0 )
+        {
+            __throw_invalid_argument("Negative dmg given");
+        }
         this->HP -= dmg;
         if(this->HP <=0)
         {
@@ -69,5 +77,33 @@ namespace ariel
     void Character::setLocation(Point dest)
     {
         this->location = dest;
+    }
+    
+    bool Character::getIsLeader()
+    {
+        return this->isLeader;
+    }
+
+    void Character::makeLeader()
+    {
+        if(this->isLeader || !this->isAlive())
+        {
+            __throw_runtime_error("Can't assign to be leader");
+        }
+        this->isLeader = true;
+    }
+
+    bool Character::getIsTeamMember()
+    {
+        return this->isTeamMember;
+    }
+
+    void Character::makeTeamMember()
+    {
+        if(this->isTeamMember || !this->isAlive())
+        {
+            __throw_runtime_error("Can't add to team");
+        }
+        this->isTeamMember = true;
     }
 }

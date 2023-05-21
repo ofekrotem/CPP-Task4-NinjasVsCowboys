@@ -10,11 +10,16 @@ private:
    Point location;
    int HP;
    string name;
-
+   bool isLeader;
+   bool isTeamMember;
    
 public:
     Character(Point location_arg, int HP_arg, string name_arg);
     Character();
+    void makeLeader();
+    bool getIsLeader();
+    void makeTeamMember();
+    bool getIsTeamMember();
     bool isAlive();
     double distance(Character* other);
     void hit(int dmg);

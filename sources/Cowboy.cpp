@@ -12,17 +12,18 @@ namespace ariel
 
     void Cowboy::shoot(Character* enemy)
     {
-        if(this->hasbullets())
+        if(!this->isAlive() || !enemy->isAlive() || this == enemy)
+        {
+            __throw_runtime_error("Trying to attack dead enemy/you are dead");
+        }
+        if(this->hasboolets())
         {
             this->currBullets-=1;
             enemy->hit(10);
-        } else 
-        {
-            this->reload();
-        }       
+        }      
     }
 
-    bool Cowboy::hasbullets()
+    bool Cowboy::hasboolets()
     {
         return this->currBullets > 0;
     }

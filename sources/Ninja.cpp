@@ -12,12 +12,16 @@ namespace ariel
 
     void Ninja::move(Character* enemy)
     {
-        this->setLocation(this->getLocation().moveTowards(enemy->getLocation(),this->speed));
+        this->setLocation(Point::moveTowards(this->getLocation(), enemy->getLocation(), this->speed));
     }
 
     void Ninja::slash(Character* enemy)
     {
-        if(this->isAlive() && this->distance(enemy) < 1)
+        if(!this->isAlive() || !enemy->isAlive() ||  this == enemy)
+        {
+            __throw_runtime_error("Trying to attack dead enemy/you are dead");
+        }
+        if(this->distance(enemy) < 1)
         {
             enemy->hit(40);
         }
@@ -27,22 +31,4 @@ namespace ariel
     {
         return "N";
     }
-
-    YoungNinja::YoungNinja(string name_arg, Point location_arg) : Ninja(14,100,name_arg,location_arg)
-    {}
-
-    YoungNinja::YoungNinja() : Ninja()
-    {}
-
-    OldNinja::OldNinja(string name_arg, Point location_arg) : Ninja(8,150,name_arg,location_arg)
-    {}
-
-    OldNinja::OldNinja() : Ninja()
-    {}
-
-    TrainedNinja::TrainedNinja(string name_arg, Point location_arg) : Ninja(12,120,name_arg,location_arg)
-    {}
-
-    TrainedNinja::TrainedNinja() : Ninja()
-    {}
 }

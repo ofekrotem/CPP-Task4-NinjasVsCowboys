@@ -35,14 +35,18 @@ namespace ariel
         return std::sqrt(dx * dx + dy * dy); 
     }
 
-    Point Point::moveTowards(Point destination, double distance)
+    Point Point::moveTowards(const Point& source, const Point& destination, double distance)
     {
-        double dx = destination.getX() - this->x;
-        double dy = destination.getY() - this->y;
-        double original_distance = std::sqrt(dx * dx + dy * dy); 
+        if (distance < 0) {
+            throw invalid_argument("Distance cannot be negative");
+        }
+
+        double dx = destination.x - source.x;
+        double dy = destination.y - source.y;
+        double original_distance = sqrt(dx * dx + dy * dy); 
 
         if (original_distance == 0 || distance == 0) {
-            return *this;
+            return source;
         }
 
         if (distance >= original_distance) {
@@ -55,10 +59,12 @@ namespace ariel
         double move_x = ux * distance;
         double move_y = uy * distance;
 
-        Point result(this->x + move_x, this->y + move_y);
+        Point result(source.x + move_x, source.y + move_y);
 
         return result;
     }
+
+
 
 
 }

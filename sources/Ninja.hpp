@@ -17,25 +17,4 @@ namespace ariel
         void slash(Character* enemy);
         string getType() override;
     };
-    
-    class YoungNinja : public Ninja
-    {
-    public:
-        YoungNinja(string name_arg, Point location_arg);
-        YoungNinja();
-    };
-    
-    class OldNinja : public Ninja
-    {
-    public:
-        OldNinja(string name_arg, Point location_arg);
-        OldNinja();
-    };
-
-    class TrainedNinja : public Ninja
-    {
-    public:
-        TrainedNinja(string name_arg, Point location_arg);
-        TrainedNinja();
-    };
 }
